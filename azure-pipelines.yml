@@ -1,19 +1,8 @@
-name: $(Date:yyyyMMdd)$(Rev:.r)
-
 trigger:
-- main              # ← simplest, one branch
-
-# ── OR, fully expanded ──
-# trigger:
-#   branches:
-#     include:
-#       - main
+- main            # build every push to main
 
 pool:
-  name: davi_pool    # or: ubuntu-latest
-  # demands can be omitted or written as a list:
-  # demands:
-  #   - java
+  vmImage: ubuntu-latest   # ← MS‑hosted agent, always available
 
 variables:
   buildConfiguration: Release
@@ -22,7 +11,7 @@ variables:
 steps:
 - task: UseDotNet@2
   inputs:
-    packageType: 'sdk'
+    packageType: sdk
     version: '8.0.x'
 
 - script: dotnet build --configuration $(buildConfiguration)
