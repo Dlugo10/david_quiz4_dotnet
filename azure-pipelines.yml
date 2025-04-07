@@ -1,13 +1,19 @@
-# davi_quiz4_ci_dotnet
 name: $(Date:yyyyMMdd)$(Rev:.r)
 
 trigger:
-  branches: [ main ]
+- main              # ← simplest, one branch
+
+# ── OR, fully expanded ──
+# trigger:
+#   branches:
+#     include:
+#       - main
 
 pool:
-  # Self‑hosted agent
-  name: davi_pool        
-  demands: java          
+  name: davi_pool    # or: ubuntu-latest
+  # demands can be omitted or written as a list:
+  # demands:
+  #   - java
 
 variables:
   buildConfiguration: Release
@@ -20,12 +26,12 @@ steps:
     version: '8.0.x'
 
 - script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'Build'
+  displayName: Build
 
 - script: dotnet publish -c $(buildConfiguration) -o $(outputDir)
-  displayName: 'Publish'
+  displayName: Publish
 
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(outputDir)'
-    ArtifactName: 'drop'
+    ArtifactName: drop
