@@ -13,6 +13,7 @@ public class IndexModel : PageModel
     }
 
     public void OnGet()
+    ViewData["Message"] = "Database access has already been done on April 1, 2025 by David Lugo";
     {
 
     }
