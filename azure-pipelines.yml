@@ -1,9 +1,8 @@
 trigger:
-- main            # build every push to main
+- main            
 
 pool:
-  vmImage: ubuntu-latest   # ← MS‑hosted agent, always available
-
+  vmImage: ubuntu-latest   
 variables:
   buildConfiguration: Release
   outputDir: $(Build.ArtifactStagingDirectory)
